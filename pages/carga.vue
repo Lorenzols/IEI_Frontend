@@ -30,10 +30,10 @@
 
           <div class="c-boton">
               <div class="c-boton-parte">
-                <button class="cancelar">Cancelar</button>
+                <button class="cancelar" >Cancelar</button>
               </div>
               <div class="c-boton-parte">
-                <button class="cargar">Cargar</button>
+                <button class="cargar" @click="cargardatos()">Cargar</button>
               </div>
             </div>
 
@@ -47,10 +47,27 @@
   </section>
 </template>
 
-<script>
-export default {
+<script setup lang="ts">
 
-}
+async function cargardatos() {
+    console.log("DEntro")
+    try {
+      const res = await $fetch('http://127.0.0.1:8000/load/CV/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Especifica el tipo de contenido
+      },
+      body: JSON.stringify({
+        // Tu formulario o datos aquí
+        ejemplo: "valor",
+      }),
+    });
+      console.log("Respuesta:", res); // Imprime la respuesta en consola
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+    
+  }
 </script>
 
 <style lang="sass">
@@ -100,13 +117,22 @@ export default {
       border: none
       border-radius: 5px
       font-size: 20px
+      cursor: pointer
+      
 
 .cancelar
   background-color: #ff5a5a
   color: white
 
+.cancelar:hover
+  background-color: #d51b1b
+  color: white
+
 .cargar
   background-color: #72a1fd
+  color: white
+.cargar:hover
+  background-color: #0095ff
   color: white
 
 .resultado
