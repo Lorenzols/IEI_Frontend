@@ -4,25 +4,25 @@
       <section class="section-input">
         <div class="caja-input">
           <h1>Pagina de carga</h1>
-          <div class="contenedor-input">
+          <div class="contenedor-input" ref="checkboxContainer">
             <div>
               <h2>Seleccione fuente: </h2>
             </div>
             <div>
               <div class="input">
-                <input type="checkbox" name="seleccionar_todas" id=""/>
+                <input type="checkbox" name="seleccionar_todas" id="" value="Seleccionar_todas" v-model="checkedNames"/>
                 <label for="seleccionar_todas">Seleccionar todas</label>
               </div>
-              <div class="input">
-                <input type="checkbox" name="" id=""/>
+              <div class="input" >
+                <input type="checkbox" name="" id="" value="Castilla_leon" v-model="checkedNames"/>
                 <label for="">Castilla y León</label>
               </div>
               <div class="input">
-                <input type="checkbox" name="" id=""/>
+                <input type="checkbox" name="" id="" value="Comunitat_Valenciana" v-model="checkedNames"/>
                 <label for="">Comunitat Valenciana</label>
               </div>
               <div class="input">
-                <input type="checkbox" name="" id=""/>
+                <input type="checkbox" name="" id="" value="Euskadi" v-model="checkedNames"/>
                 <label for="">Euskadi</label>
               </div>
             </div>
@@ -49,9 +49,40 @@
 
 <script setup lang="ts">
 
+const checkedNames = ref([])
+
+const checkboxContainer = ref(null);
+
 async function cargardatos() {
     console.log("DEntro")
-    try {
+
+    for(let i=0; i < checkedNames.value.length; i++){
+      if(checkedNames.value[i] == "Seleccionar_todas"){
+        console.log("Dentro de todas")
+        break
+      }else if (checkedNames.value[i] != "Seleccionar_todas"){
+        if(checkedNames.value[i] == "Castilla_leon"){
+          console.log("Dentro de Castilla_leon")
+
+        }else if(checkedNames.value[i] == "Comunitat_Valenciana"){
+          console.log("Dentro de Comunitat_Valenciana")
+
+        }else if(checkedNames.value[i] == "Euskadi"){
+          console.log("Dentro de Euskadi")
+        }
+      }
+
+    }
+    
+    // const checkboxes = checkboxContainer.value.querySelectorAll("input[type='checkbox']");
+    // for(let i=0; i < checkboxes.length; i++){
+    //   console.log(checkboxes.value)
+    // }
+    // const checked = Array.from(checkboxes).filter(cb => cb.checked).length > 0;
+    // console.log(checked.valueOf);
+
+
+    /*try {
       const res = await $fetch('http://127.0.0.1:8000/load/CV/', {
       method: 'POST',
       headers: {
@@ -65,7 +96,7 @@ async function cargardatos() {
       console.log("Respuesta:", res); // Imprime la respuesta en consola
     } catch (error) {
       console.error("Error en la solicitud:", error);
-    }
+    }*/
     
   }
 </script>
