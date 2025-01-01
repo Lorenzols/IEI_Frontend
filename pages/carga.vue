@@ -30,7 +30,7 @@
 
           <div class="c-boton">
               <div class="c-boton-parte">
-                <button class="cancelar" >Cancelar</button>
+                <button class="cancelar" @click="borrardatos()">Borrar</button>
               </div>
               <div class="c-boton-parte">
                 <button class="cargar" @click="cargardatos()">Cargar</button>
@@ -40,7 +40,7 @@
         </div>
         <div>
           <h1>Resultados de carga</h1>
-          <div class="resultado"></div>
+          <div class="resultado" id="insertar_res"></div>
         </div>
       </section>
       
@@ -51,40 +51,137 @@
 
 const checkedNames = ref([])
 
-const checkboxContainer = ref(null);
-
 async function cargardatos() {
-    console.log("DEntro")
+    let miDiv = document.getElementById("insertar_res");
 
     for(let i=0; i < checkedNames.value.length; i++){
       if(checkedNames.value[i] == "Seleccionar_todas"){
         console.log("Dentro de todas")
+
+        try {
+          let res = await $fetch('http://127.0.0.1:8000/load/CLE/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', // Especifica el tipo de contenido
+            },
+            body: JSON.stringify({
+              // Tu formulario o datos aquí
+              ejemplo: "valor",
+            }),
+          });
+          console.log("Respuesta:", res); // Imprime la respuesta en consola
+          miDiv.innerHTML = res.output;
+
+          res = await $fetch('http://127.0.0.1:8000/load/CV/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', // Especifica el tipo de contenido
+            },
+            body: JSON.stringify({
+              // Tu formulario o datos aquí
+              ejemplo: "valor",
+            }),
+          });
+          console.log("Respuesta:", res); // Imprime la respuesta en consola
+          miDiv.innerHTML += res.output;
+
+          res = await $fetch('http://127.0.0.1:8000/load/EUS/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', // Especifica el tipo de contenido
+            },
+            body: JSON.stringify({
+              // Tu formulario o datos aquí
+              ejemplo: "valor",
+            }),
+          });
+          console.log("Respuesta:", res); // Imprime la respuesta en consola
+          miDiv.innerHTML += res.output;
+
+        } catch (error) {
+          console.error("Error en la solicitud:", error);
+        }
+
         break
+
       }else if (checkedNames.value[i] != "Seleccionar_todas"){
         if(checkedNames.value[i] == "Castilla_leon"){
           console.log("Dentro de Castilla_leon")
 
+          try {
+            const res = await $fetch('http://127.0.0.1:8000/load/CLE/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json', // Especifica el tipo de contenido
+              },
+              body: JSON.stringify({
+                // Tu formulario o datos aquí
+                ejemplo: "valor",
+              }),
+            });
+            console.log("Respuesta:", res); // Imprime la respuesta en consola
+            miDiv.innerHTML = res.output;
+          } catch (error) {
+            console.error("Error en la solicitud:", error);
+          }
+
         }else if(checkedNames.value[i] == "Comunitat_Valenciana"){
           console.log("Dentro de Comunitat_Valenciana")
 
+          try {
+            const res = await $fetch('http://127.0.0.1:8000/load/CV/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json', // Especifica el tipo de contenido
+              },
+              body: JSON.stringify({
+                // Tu formulario o datos aquí
+                ejemplo: "valor",
+              }),
+            });
+            console.log("Respuesta:", res); // Imprime la respuesta en consola
+            miDiv.innerHTML = res.output;
+          } catch (error) {
+            console.error("Error en la solicitud:", error);
+          }
+
+
         }else if(checkedNames.value[i] == "Euskadi"){
           console.log("Dentro de Euskadi")
+          try {
+            const res = await $fetch('http://127.0.0.1:8000/load/EUS/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json', // Especifica el tipo de contenido
+              },
+              body: JSON.stringify({
+                // Tu formulario o datos aquí
+                ejemplo: "valor",
+              }),
+            });
+            console.log("Respuesta:", res); // Imprime la respuesta en consola
+            miDiv.innerHTML = res.output;
+          } catch (error) {
+            console.error("Error en la solicitud:", error);
+          }
         }
       }
 
     }
-    
-    // const checkboxes = checkboxContainer.value.querySelectorAll("input[type='checkbox']");
-    // for(let i=0; i < checkboxes.length; i++){
-    //   console.log(checkboxes.value)
-    // }
-    // const checked = Array.from(checkboxes).filter(cb => cb.checked).length > 0;
-    // console.log(checked.valueOf);
 
+    document.querySelectorAll('#formElement input[type=checkbox]').forEach(function(checkElement) {
+      if (checkElement instanceof HTMLInputElement) {
+          checkElement.checked = false;
+      }
+    });
 
-    /*try {
-      const res = await $fetch('http://127.0.0.1:8000/load/CV/', {
-      method: 'POST',
+  }
+
+async function borrardatos() {
+  let miDiv = document.getElementById("insertar_res");
+  try {
+    const res = await $fetch('http://127.0.0.1:8000/clear-database/', {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json', // Especifica el tipo de contenido
       },
@@ -93,12 +190,13 @@ async function cargardatos() {
         ejemplo: "valor",
       }),
     });
-      console.log("Respuesta:", res); // Imprime la respuesta en consola
-    } catch (error) {
-      console.error("Error en la solicitud:", error);
-    }*/
-    
+    console.log("Respuesta:", res); // Imprime la respuesta en consola
+    miDiv.innerHTML = res.message;
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
   }
+}
+
 </script>
 
 <style lang="sass">
