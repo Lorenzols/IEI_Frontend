@@ -56,8 +56,6 @@ async function cargardatos() {
 
     for(let i=0; i < checkedNames.value.length; i++){
       if(checkedNames.value[i] == "Seleccionar_todas"){
-        console.log("Dentro de todas")
-
         try {
           let res = await $fetch('http://127.0.0.1:8000/load/CLE/', {
             method: 'POST',
@@ -69,7 +67,7 @@ async function cargardatos() {
               ejemplo: "valor",
             }),
           });
-          console.log("Respuesta:", res); // Imprime la respuesta en consola
+          //console.log("Respuesta:", res); // Imprime la respuesta en consola
           miDiv.innerHTML = res.output;
 
           res = await $fetch('http://127.0.0.1:8000/load/CV/', {
@@ -82,7 +80,7 @@ async function cargardatos() {
               ejemplo: "valor",
             }),
           });
-          console.log("Respuesta:", res); // Imprime la respuesta en consola
+          //console.log("Respuesta:", res); // Imprime la respuesta en consola
           miDiv.innerHTML += res.output;
 
           res = await $fetch('http://127.0.0.1:8000/load/EUS/', {
@@ -95,7 +93,7 @@ async function cargardatos() {
               ejemplo: "valor",
             }),
           });
-          console.log("Respuesta:", res); // Imprime la respuesta en consola
+          //console.log("Respuesta:", res); // Imprime la respuesta en consola
           miDiv.innerHTML += res.output;
 
         } catch (error) {
@@ -106,7 +104,7 @@ async function cargardatos() {
 
       }else if (checkedNames.value[i] != "Seleccionar_todas"){
         if(checkedNames.value[i] == "Castilla_leon"){
-          console.log("Dentro de Castilla_leon")
+          //console.log("Dentro de Castilla_leon")
 
           try {
             const res = await $fetch('http://127.0.0.1:8000/load/CLE/', {
@@ -119,14 +117,14 @@ async function cargardatos() {
                 ejemplo: "valor",
               }),
             });
-            console.log("Respuesta:", res); // Imprime la respuesta en consola
+            //console.log("Respuesta:", res); // Imprime la respuesta en consola
             miDiv.innerHTML = res.output;
           } catch (error) {
             console.error("Error en la solicitud:", error);
           }
 
         }else if(checkedNames.value[i] == "Comunitat_Valenciana"){
-          console.log("Dentro de Comunitat_Valenciana")
+          //console.log("Dentro de Comunitat_Valenciana")
 
           try {
             const res = await $fetch('http://127.0.0.1:8000/load/CV/', {
@@ -139,7 +137,7 @@ async function cargardatos() {
                 ejemplo: "valor",
               }),
             });
-            console.log("Respuesta:", res); // Imprime la respuesta en consola
+            //console.log("Respuesta:", res); // Imprime la respuesta en consola
             miDiv.innerHTML = res.output;
           } catch (error) {
             console.error("Error en la solicitud:", error);
@@ -147,7 +145,7 @@ async function cargardatos() {
 
 
         }else if(checkedNames.value[i] == "Euskadi"){
-          console.log("Dentro de Euskadi")
+          //console.log("Dentro de Euskadi")
           try {
             const res = await $fetch('http://127.0.0.1:8000/load/EUS/', {
               method: 'POST',
@@ -159,7 +157,7 @@ async function cargardatos() {
                 ejemplo: "valor",
               }),
             });
-            console.log("Respuesta:", res); // Imprime la respuesta en consola
+            //console.log("Respuesta:", res); // Imprime la respuesta en consola
             miDiv.innerHTML = res.output;
           } catch (error) {
             console.error("Error en la solicitud:", error);
@@ -168,13 +166,6 @@ async function cargardatos() {
       }
 
     }
-
-    document.querySelectorAll('#formElement input[type=checkbox]').forEach(function(checkElement) {
-      if (checkElement instanceof HTMLInputElement) {
-          checkElement.checked = false;
-      }
-    });
-
   }
 
 async function borrardatos() {
@@ -190,7 +181,7 @@ async function borrardatos() {
         ejemplo: "valor",
       }),
     });
-    console.log("Respuesta:", res); // Imprime la respuesta en consola
+    //console.log("Respuesta:", res); // Imprime la respuesta en consola
     miDiv.innerHTML = res.message;
   } catch (error) {
     console.error("Error en la solicitud:", error);
@@ -215,6 +206,8 @@ async function borrardatos() {
   margin: 0 auto
   h1
     margin: 20px 0px
+    text-align: center
+    font-size: 36px
 
 .contenedor-input
   display: flex
@@ -265,10 +258,11 @@ async function borrardatos() {
   color: white
 
 .resultado
+  padding: 20px
   margin-top: 25px
   width: 100%
-  height: 20vh
+  height: auto
   /* background-color: brown; */
-  border: 2px solid black
+  border: 2px solid #5473ca
   border-radius: 15px
 </style>
