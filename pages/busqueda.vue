@@ -50,6 +50,7 @@
 <script setup>
     import { ref, onMounted } from 'vue';
     import L from 'leaflet';
+    import "leaflet/dist/leaflet.css";
 
     let map;
 
