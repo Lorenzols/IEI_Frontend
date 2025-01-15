@@ -5,10 +5,10 @@
         <div class="filters">
             <input type="text" v-model="localidad" placeholder="Localidad" />
             <input type="text" v-model="provincia" placeholder="Provincia" />
-            <input type="text" v-model="codigoPostal" placeholder="Código Postal" />
+            <input type="text" v-model="codigoPostal" placeholder="CÃ³digo Postal" />
             <select v-model="tipo">
                 <option value="">Seleccionar tipo</option>
-                <option value="Yacimiento arqueológico">Yacimiento arqueológico</option>
+                <option value="Yacimiento arqueolÃ³gico">Yacimiento arqueolÃ³gico</option>
                 <option value="Iglesia-Ermita">Iglesia-Ermita</option>
                 <option value="Monasterio-Convento">Monasterio-Convento</option>
                 <option value="Castillo-Fortaleza-Torre">Castillo-Fortaleza-Torre</option>
@@ -25,15 +25,15 @@
                 <thread>
                     <tr>
                         <th>Nombre</th>
-                        <td>Tipo</td>
-                        <td>Dirección</td>
-                        <td>Cód. postal</td>
-                        <td>Descripción</td>
-                        <td>Localidad</td>
+                        <th>Tipo</th>
+                        <th>DirecciÃ³n</th>
+                        <th>Cod. postal</th>
+                        <th>DescripciÃ³n</th>
+                        <th>Localidad</th>
                     </tr>
                 </thread>
                 <tbody>
-                    <tr v-for="monumento in monumentos" : key="monumento.nombre">
+                    <tr v-for="monumento in monumentos" :key="monumento.nombre">
                         <td>{{ monumento.nombre }}</td>
                         <td>{{ monumento.tipo }}</td>
                         <td>{{ monumento.direccion }}</td>
@@ -65,7 +65,7 @@
 
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+            attribution: 'Â© OpenStreetMap contributors'
         }).addTo(map);
     });
     async function loadMonuments() {
@@ -102,7 +102,6 @@
         } catch (err) {
             console.error("Error:", err);
         }
-    }
     }
 </script>
 
