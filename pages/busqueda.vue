@@ -22,7 +22,7 @@
         <div class="table-container">
             <h2>Lista de Monumentos</h2>
             <table>
-                <thread>
+                <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Tipo</th>
@@ -31,7 +31,7 @@
                         <th>Descripción</th>
                         <th>Localidad</th>
                     </tr>
-                </thread>
+                </thead>
                 <tbody>
                     <tr v-for="monumento in monumentos" :key="monumento.nombre">
                         <td>{{ monumento.nombre }}</td>
@@ -73,22 +73,29 @@
         try {
             const queryParams = new URLSearchParams();
 
-            if (localidad.value) queryParams.append("Nombre de la localidad", localidad.value);
-            if (provincia.value) queryParams.append("Nombre de la provincia", provincia.value);
-            if (codigoPostal.value) queryParams.append("Codigo postal", codigoPostal.value);
-            if (tipo.value) queryParams.append("Tipo de monumento", tipo.value);
+            if (localidad.value) queryParams.append("localidad", localidad.value);
+            if (provincia.value) queryParams.append("provincia", provincia.value);
+            if (codigoPostal.value) queryParams.append("codigo_postal", codigoPostal.value);
+            if (tipo.value) queryParams.append("tipo", tipo.value);
 
             const response = await fetch(
                 `http://127.0.0.1:8004/search/?${queryParams.toString()}`
-            );
+            )
 
             if (!response.ok) {
+                monumentos.value = [];
+                map.eachLayer((layer) => {
+                if (layer instanceof L.Marker) map.removeLayer(layer);
+            });
                 throw new Error("Error al obtener los monumentos");
             }
-
+            
             const data = await response.json();
+        
 
             monumentos.value = data;
+
+           
 
             map.eachLayer((layer) => {
                 if (layer instanceof L.Marker) map.removeLayer(layer);
@@ -96,6 +103,7 @@
 
 
             data.forEach((monumento) => {
+                
                 L.marker([monumento.latitud, monumento.longitud])
                     .addTo(map)
                     .bindPopup(`<strong>${monumento.nombre}</strong>`);
