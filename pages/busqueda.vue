@@ -1,7 +1,7 @@
 <template>
     <section class="c-primary ">
         <navprimary />
-        <h1>Pagina de busqueda</h1>
+        <h1 class="titulo1">Pagina de busqueda</h1>
         <div class="filters">
             <input type="text" v-model="localidad" placeholder="Localidad" />
             <input type="text" v-model="provincia" placeholder="Provincia" />
@@ -17,10 +17,10 @@
                 <option value="Otros">Otros</option>
             </select>
         </div>
-        <button id="load-button" @click="loadMonuments">Buscar Monumentos</button>
-        <div id="map"></div>
+        <button id="load-button" @click="loadMonuments" class="boton-buscar">Buscar Monumentos</button>
+        <div id="map" class="mapa"></div>
         <div class="table-container">
-            <h2>Lista de Monumentos</h2>
+            <h2 class="titulo2">Lista de Monumentos</h2>
             <table>
                 <thead>
                     <tr>
@@ -120,18 +120,36 @@
 <style scoped>
     #map {
         height: 500px;
-        width: 100%;
-        margin-top: 20px;
+        width: calc(80%);
+        margin: auto;
+        border-radius: 10px;
     }
 
+    .titulo1 {
+      padding: 20px 30px;
+    }
     .filters {
         margin-bottom: 10px;
+        margin-left: 30px;
+    }
+
+    .boton-buscar{
+      padding: 10px 14px;
+      margin: 5px 30px;
+      background-color: #72a1fd;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 20px;
+      cursor: pointer;
+      margin-bottom: 25px;
     }
 
         .filters input,
         .filters select {
-            margin-right: 10px;
-            padding: 5px;
+            margin-right: 15px;
+            padding: 10px 14px;
+            font-size: 16px;
         }
 
         .filters button {
@@ -147,7 +165,11 @@
             }
 
     .table-container {
-        margin-top: 20px;
+      margin: 20px 30px;
+    }
+    .titulo2{
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
 
     table {

@@ -8,7 +8,7 @@
             <div>
               <h2>Seleccione fuente: </h2>
             </div>
-            <div>
+            <div class="caja-inputs">
               <div class="input">
                 <input type="checkbox" name="seleccionar_todas" id="" value="Seleccionar_todas" v-model="checkedNames"/>
                 <label for="seleccionar_todas">Seleccionar todas</label>
@@ -39,7 +39,7 @@
 
         </div>
         <div>
-          <h1>Resultados de carga</h1>
+          <h1>Resultados de carga:</h1>
           <div class="resultado" id="insertar_res"></div>
         </div>
       </section>
@@ -202,7 +202,7 @@ async function borrardatos() {
   padding-top: 10px
 
 .caja-input
-  width: 500px
+  width: 600px
   margin: 0 auto
   h1
     margin: 20px 0px
@@ -214,14 +214,17 @@ async function borrardatos() {
   align-content: center
   h2
     font-size: 30px
+.caja-inputs
+  padding-top: 26px
 
 .input
-  padding: 10px 15px
+  padding: 5px 15px
   display: flex
   align-content: center
   input
     height: 20px
     width: 20px
+    margin: 4px
   label
     margin-left: 10px
     font-size: 20px
