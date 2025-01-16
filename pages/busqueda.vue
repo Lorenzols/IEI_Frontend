@@ -79,7 +79,7 @@
             if (tipo.value) queryParams.append("Tipo de monumento", tipo.value);
 
             const response = await fetch(
-                `http://127.0.0.1:8000/search/?${queryParams.toString()}`
+                `http://127.0.0.1:8004/search/?${queryParams.toString()}`
             );
 
             if (!response.ok) {
