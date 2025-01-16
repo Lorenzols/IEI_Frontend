@@ -30,6 +30,7 @@
                         <th>Cod. postal</th>
                         <th>Descripción</th>
                         <th>Localidad</th>
+                        <th>Provincia</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,7 @@
                         <td>{{ monumento.codigo_postal }}</td>
                         <td>{{ monumento.descripcion }}</td>
                         <td>{{ monumento.en_localidad }}</td>
+                        <td>{{ monumento.en_provincia }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -49,8 +51,8 @@
 
 <script setup>
     import { ref, onMounted } from 'vue';
-    import L from 'leaflet';
-    import "leaflet/dist/leaflet.css";
+    //import L from 'leaflet';
+    //import "leaflet/dist/leaflet.css";
 
     let map;
 
@@ -60,14 +62,17 @@
     const tipo = ref("");
     const monumentos = ref([]);
 
-    onMounted(() => {
-
+    onMounted(async() => {
+        if (typeof window !== 'undefined') {
+            const L = await import('leaflet');
+            await import('leaflet/dist/leaflet.css');
+        
         map = L.map('map').setView([40.4168, -3.7038], 6);
-
-
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
+
+        }
     });
     async function loadMonuments() {
         try {
