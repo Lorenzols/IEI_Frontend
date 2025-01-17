@@ -103,13 +103,6 @@ async function cargardatos() {
           reparados.push(res[0]?.reparados)
           rechazados.push(res[0]?.rechazados)
 
-          miDiv.innerHTML = `
-                          <H2>Número de registros cargados correctamente:</H2> <p> ${correctos}</p>
-                          <H2>Registrados con errores y reparados:</H2"><p> ${reparados}</p>
-                          <H2>Registrados con errores y rechazados:</H2><p> ${rechazados}</p>
-                        `;
-          
-
         } catch (error) {
           console.error("Error en la solicitud:", error);
         }
@@ -132,11 +125,9 @@ async function cargardatos() {
               }),
             });
             //console.log("Respuesta:", res); // Imprime la respuesta en consola
-            miDiv.innerHTML = `
-                          <H2>Número de registros cargados correctamente:</H2> <p> ${res[0]?.correctos || "0"}</p>
-                          <H2>Registrados con errores y reparados:</H2"><p> ${res[0]?.reparados || "0"}</p>
-                          <H2>Registrados con errores y rechazados:</H2><p> ${res[0]?.rechazados || "0"}</p>
-                        `;
+            correctos+=parseInt(res[0]?.correctos)
+            reparados.push(res[0]?.reparados)
+            rechazados.push(res[0]?.rechazados)
           } catch (error) {
             console.error("Error en la solicitud:", error);
           }
@@ -156,15 +147,12 @@ async function cargardatos() {
               }),
             });
             //console.log("Respuesta:", res); // Imprime la respuesta en consola
-            miDiv.innerHTML = `
-                          <H2>Número de registros cargados correctamente:</H2> <p> ${res[0]?.correctos || "0"}</p>
-                          <H2>Registrados con errores y reparados:</H2"><p> ${res[0]?.reparados || "0"}</p>
-                          <H2>Registrados con errores y rechazados:</H2><p> ${res[0]?.rechazados || "0"}</p>
-                        `;
+            correctos+=parseInt(res[0]?.correctos)
+            reparados.push(res[0]?.reparados)
+            rechazados.push(res[0]?.rechazados)
           } catch (error) {
             console.error("Error en la solicitud:", error);
           }
-
 
         }else if(checkedNames.value[i] == "Euskadi"){
           //console.log("Dentro de Euskadi")
@@ -180,18 +168,21 @@ async function cargardatos() {
               }),
             });
             console.log("Respuesta:", res); // Imprime la respuesta en consola
-            miDiv.innerHTML = `
-                          <H2>Número de registros cargados correctamente:</H2> <p> ${res[0]?.correctos || "0"}</p>
-                          <H2>Registrados con errores y reparados:</H2"><p> ${res[0]?.reparados || "0"}</p>
-                          <H2>Registrados con errores y rechazados:</H2><p> ${res[0]?.rechazados || "0"}</p>
-                        `;
+              correctos+=parseInt(res[0]?.correctos)
+            reparados.push(res[0]?.reparados)
+            rechazados.push(res[0]?.rechazados)
           } catch (error) {
             console.error("Error en la solicitud:", error);
           }
         }
       }
-
     }
+
+    miDiv.innerHTML = `
+                          <H2>Número de registros cargados correctamente:</H2> <p> ${correctos}</p>
+                          <H2>Registrados con errores y reparados:</H2"><p> ${reparados}</p>
+                          <H2>Registrados con errores y rechazados:</H2><p> ${rechazados}</p>
+                        `;
   }
 
 async function borrardatos() {
