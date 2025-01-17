@@ -40,7 +40,8 @@
         </div>
         <div>
           <h1>Resultados de carga:</h1>
-          <div class="resultado" id="insertar_res"></div>
+          <div class="resultado" id="insertar_res">
+          </div>
         </div>
       </section>
       
@@ -53,6 +54,9 @@ const checkedNames = ref([])
 
 async function cargardatos() {
     let miDiv = document.getElementById("insertar_res");
+    let correctos = 0
+    let reparados = [];
+    let rechazados = [];
 
     for(let i=0; i < checkedNames.value.length; i++){
       if(checkedNames.value[i] == "Seleccionar_todas"){
@@ -67,8 +71,9 @@ async function cargardatos() {
               ejemplo: "valor",
             }),
           });
-          //console.log("Respuesta:", res); // Imprime la respuesta en consola
-          miDiv.innerHTML = res.output;
+          correctos+=parseInt(res[0]?.correctos)
+          reparados.push(res[0]?.reparados)
+          rechazados.push(res[0]?.rechazados)
 
           res = await $fetch('http://127.0.0.1:8000/load/CV/', {
             method: 'POST',
@@ -80,8 +85,9 @@ async function cargardatos() {
               ejemplo: "valor",
             }),
           });
-          //console.log("Respuesta:", res); // Imprime la respuesta en consola
-          miDiv.innerHTML += res.output;
+          correctos+=parseInt(res[0]?.correctos)
+          reparados.push(res[0]?.reparados)
+          rechazados.push(res[0]?.rechazados)
 
           res = await $fetch('http://127.0.0.1:8000/load/EUS/', {
             method: 'POST',
@@ -93,8 +99,16 @@ async function cargardatos() {
               ejemplo: "valor",
             }),
           });
-          //console.log("Respuesta:", res); // Imprime la respuesta en consola
-          miDiv.innerHTML += res.output;
+          correctos+=parseInt(res[0]?.correctos)
+          reparados.push(res[0]?.reparados)
+          rechazados.push(res[0]?.rechazados)
+
+          miDiv.innerHTML = `
+                          <H2>Número de registros cargados correctamente:</H2> <p> ${correctos}</p>
+                          <H2>Registrados con errores y reparados:</H2"><p> ${reparados}</p>
+                          <H2>Registrados con errores y rechazados:</H2><p> ${rechazados}</p>
+                        `;
+          
 
         } catch (error) {
           console.error("Error en la solicitud:", error);
@@ -118,7 +132,11 @@ async function cargardatos() {
               }),
             });
             //console.log("Respuesta:", res); // Imprime la respuesta en consola
-            miDiv.innerHTML = res.output;
+            miDiv.innerHTML = `
+                          <H2>Número de registros cargados correctamente:</H2> <p> ${res[0]?.correctos || "0"}</p>
+                          <H2>Registrados con errores y reparados:</H2"><p> ${res[0]?.reparados || "0"}</p>
+                          <H2>Registrados con errores y rechazados:</H2><p> ${res[0]?.rechazados || "0"}</p>
+                        `;
           } catch (error) {
             console.error("Error en la solicitud:", error);
           }
@@ -138,7 +156,11 @@ async function cargardatos() {
               }),
             });
             //console.log("Respuesta:", res); // Imprime la respuesta en consola
-            miDiv.innerHTML = res.output;
+            miDiv.innerHTML = `
+                          <H2>Número de registros cargados correctamente:</H2> <p> ${res[0]?.correctos || "0"}</p>
+                          <H2>Registrados con errores y reparados:</H2"><p> ${res[0]?.reparados || "0"}</p>
+                          <H2>Registrados con errores y rechazados:</H2><p> ${res[0]?.rechazados || "0"}</p>
+                        `;
           } catch (error) {
             console.error("Error en la solicitud:", error);
           }
@@ -157,8 +179,12 @@ async function cargardatos() {
                 ejemplo: "valor",
               }),
             });
-            //console.log("Respuesta:", res); // Imprime la respuesta en consola
-            miDiv.innerHTML = res.output;
+            console.log("Respuesta:", res); // Imprime la respuesta en consola
+            miDiv.innerHTML = `
+                          <H2>Número de registros cargados correctamente:</H2> <p> ${res[0]?.correctos || "0"}</p>
+                          <H2>Registrados con errores y reparados:</H2"><p> ${res[0]?.reparados || "0"}</p>
+                          <H2>Registrados con errores y rechazados:</H2><p> ${res[0]?.rechazados || "0"}</p>
+                        `;
           } catch (error) {
             console.error("Error en la solicitud:", error);
           }
@@ -268,4 +294,12 @@ async function borrardatos() {
   /* background-color: brown; */
   border: 2px solid #5473ca
   border-radius: 15px
+
+  p
+    margin-top: 5px
+    margin-bottom: 10px
+    font-weight: normal
+
+  h2
+    font-weight: bold
 </style>
